@@ -57,9 +57,10 @@ const resolvers = {
         return disliked;
     },
     delete: (_, { uuid }) => {
-        const deleted = news.find(o => o.uuid === uuid);
-        if (!disliked) throw new Error('No news with this uuid');
-        return news.filter(o => o.uuid !== uuid);
+        const indexToDelete = news.findIndex(o => o.uuid === uuid);
+        if (indexToDelete === -1) throw new Error('No news with this uuid');
+        news.splice(indexToDelete, 1)
+        return news;
     }
   }
 };
